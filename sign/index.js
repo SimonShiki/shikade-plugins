@@ -18,8 +18,7 @@ async function onGroupMessage (session) {
     }
     
     if (session.raw_message.trim() === '签到') {
-        let attempt = localData.signedUser[session.user_id];
-        if (attempt === null) attempt = 1;
+        const attempt = parseInt(localData.signedUser[session.user_id] ?? 1);
         if (attempt <= 1) {
             const jrrp = parseInt(session.user_id / localData.seed % 101);
             session.reply('签到成功(≧▽≦)！你今天的人品是：'+ jrrp);
