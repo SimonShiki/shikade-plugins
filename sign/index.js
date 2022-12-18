@@ -31,7 +31,7 @@ async function onGroupMessage (session) {
             } catch (e) {}
         }
         
-        localData.signedUser[session.user_id] = Number(localData.signedUser[session.user_id]) + 1;
+        localData.signedUser[session.user_id] = attempt + 1;
         await client.saveLocalUserData(localData);
     }
 }
