@@ -18,11 +18,12 @@ async function onGroupMessage (session) {
     }
     
     if (session.raw_message.trim() === '签到') {
-        const attempt = localData.signedUser[session.user_id];
-        if (attempt <= 0) {
+        let attempt = localData.signedUser[session.user_id];
+        if (attempt === null) attempt = 1;
+        if (attempt <= 1) {
             const jrrp = parseInt(session.user_id / localData.seed % 101);
             session.reply('签到成功(≧▽≦)！你今天的人品是：'+ jrrp);
-        } else if (attempt == 1) {
+        } else if (attempt == 2) {
             const jrrp = parseInt(session.user_id / localData.seed % 101);
             session.reply('你知道吗，反复签到可是要掉脑袋的(๑•﹏•) 你今天的人品是：' + jrrp);
         } else {
@@ -31,7 +32,7 @@ async function onGroupMessage (session) {
             } catch (e) {}
         }
         
-        localData.signedUser[session.user_id] += 1;
+        localData.signedUser[session.user_id] = Number(localData.signedUser[session.user_id]) + 1;
         await client.saveLocalUserData(localData);
     }
 }
