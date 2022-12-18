@@ -65,10 +65,12 @@ const plugin = {
         if (!localData.hasOwnProperty('discord_webhook')) {
             config.logger.info('尚未配置 discord 反代地址，请配置完后重载本插件');
             localData.discord_webhook = '';
+            localData.workgroup = [];
             await client.saveLocalUserData(localData);
             return;
         }
         config.discord_webhook = localData.discord_webhook;
+        config.workgroup = localData.workgroup;
         bot.randomHashedMessage = true;
         bot.on('message.group', onGroupMessage);
     },
