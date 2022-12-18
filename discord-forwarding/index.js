@@ -61,8 +61,8 @@ const plugin = {
     async uninit () {},
     async enable (bot) {
         client = bot;
-        let localData = await client.loadLocalUserData();
-        if (!localData || !localData.hasOwnProperty('discord_webhook')) {
+        let localData = await client.loadLocalUserData() ?? {};
+        if (!localData.hasOwnProperty('discord_webhook')) {
             config.logger.info('尚未配置 discord 反代地址，请配置完后重载本插件');
             localData.discord_webhook = '';
             await client.saveLocalUserData(localData);
